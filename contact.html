@@ -10,35 +10,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<title>Fike Wedding | Contact</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="description" content="Free HTML5 Template by FREEHTML5.CO" />
-	<meta name="keywords" content="free html5, free template, free bootstrap, html5, css3, mobile first, responsive" />
-	<meta name="author" content="FREEHTML5.CO" />
 	<link rel="preconnect" href="https://challenges.cloudflare.com" />
-
-	<!-- 
-	//////////////////////////////////////////////////////
-
-	FREE HTML5 TEMPLATE 
-	DESIGNED & DEVELOPED by FREEHTML5.CO
-		
-	Website: 		http://freehtml5.co/
-	Email: 			info@freehtml5.co
-	Twitter: 		http://twitter.com/fh5co
-	Facebook: 		https://www.facebook.com/fh5co
-
-	//////////////////////////////////////////////////////
-	 -->
-
-	<!-- Facebook and Twitter integration -->
-	<meta property="og:title" content="" />
-	<meta property="og:image" content="" />
-	<meta property="og:url" content="" />
-	<meta property="og:site_name" content="" />
-	<meta property="og:description" content="" />
-	<meta name="twitter:title" content="" />
-	<meta name="twitter:image" content="" />
-	<meta name="twitter:url" content="" />
-	<meta name="twitter:card" content="" />
 
 	<link href='https://fonts.googleapis.com/css?family=Work+Sans:400,300,600,400italic,700' rel='stylesheet'
 		type='text/css'>
@@ -149,7 +121,7 @@
 		<div class="fh5co-section">
 			<div class="container">
 				<div class="row">
-					<div class="col-md-6 col-md-push-6 animate-box">
+					<div class="animate-box">
 						<h3>Get In Touch</h3>
 						<form action="https://rsvp-worker.fike.workers.dev" method="POST">
 							<div class="row form-group">
@@ -167,7 +139,8 @@
 							<div class="row form-group">
 								<div class="col-md-12">
 									<label for="email">Email</label>
-									<input name="email" type="text" id="email" class="form-control" placeholder="Your email address">
+									<input required name="email" type="text" id="email" class="form-control"
+										placeholder="Your email address">
 								</div>
 							</div>
 
@@ -186,32 +159,19 @@
 										placeholder="Write us something"></textarea>
 								</div>
 							</div>
-							<div class="form-group">
-								<input type="submit" value="Send Message" class="btn btn-primary">
+							<div class="row form-group">
+								<div class="cf-turnstile" data-sitekey="0x4AAAAAADMMo-0qNw_JKtGM" data-callback="onTurnstileCallback">
+								</div>
 							</div>
-							<div class="cf-turnstile" data-sitekey="0x4AAAAAADMMo-0qNw_JKtGM"></div>
+							<div class="form-group">
+								<input type="submit" id="submit-btn" value="Send Message" disabled class="btn btn-primary">
+							</div>
 						</form>
-					</div>
-					<div class="col-md-5 col-md-pull-5 animate-box">
-
-						<div class="fh5co-contact-info">
-							<h3>Contact Information</h3>
-							<ul>
-								<li class="address">198 West 21th Street, <br> Suite 721 New York NY 10016</li>
-								<li class="phone"><a href="tel://1234567920">+ 1235 2355 98</a></li>
-								<li class="email"><a href="mailto:info@yoursite.com">info@yoursite.com</a></li>
-								<li class="url"><a href="http://gettemplates.co">gettemplates.co</a></li>
-							</ul>
-						</div>
-
 					</div>
 				</div>
 
 			</div>
 		</div>
-
-		<div id="map" class="fh5co-map"></div>
-		<!-- END map -->
 
 		<footer id="fh5co-footer" role="contentinfo">
 			<div class="container">
@@ -242,6 +202,13 @@
 		<a href="#" class="js-gotop"><i class="icon-arrow-up"></i></a>
 	</div>
 
+	<script>
+		function onTurnstileCallback(token) {
+			// Turnstile passed, enable the submit button
+			document.getElementById('submit-btn').disabled = false;
+		}
+	</script>
+
 	<!-- jQuery -->
 	<script src="js/jquery.min.js"></script>
 	<!-- jQuery Easing -->
@@ -260,10 +227,6 @@
 	<!-- Magnific Popup -->
 	<script src="js/jquery.magnific-popup.min.js"></script>
 	<script src="js/magnific-popup-options.js"></script>
-	<!-- Google Map -->
-	<script
-		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCefOgb1ZWqYtj7raVSmN4PL2WkTrc-KyA&sensor=false"></script>
-	<script src="js/google_map.js"></script>
 
 	<!-- Main -->
 	<script src="js/main.js"></script>
