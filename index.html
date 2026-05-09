@@ -31,24 +31,6 @@
 	<!-- Theme style  -->
 	<link rel="stylesheet" href="css/style.css">
 
-	<!-- Leaflet CSS -->
-	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-
-	<style>
-		.leaflet-control-zoom a {
-			background-color: white !important;
-			color: black !important;
-			font-size: 18px;
-			font-weight: bold;
-			border: 1px solid #ccc;
-		}
-
-		.leaflet-control-zoom {
-			background: white;
-			border: 1px solid #ccc;
-		}
-	</style>
-
 	<!-- Modernizr JS -->
 	<script src="js/modernizr-2.6.2.min.js"></script>
 	<!-- FOR IE9 below -->
@@ -190,7 +172,7 @@
 			</div>
 		</div>
 
-		<div id="fh5co-event" class="fh5co-bg" style="background-image:url(images/img_bg_3.jpg);">
+		<div id="fh5co-event" class="fh5co-bg" style="background-image:url(images/venueScenic.jpg);">
 			<div class="overlay"></div>
 			<div class="container">
 				<div class="row">
@@ -207,7 +189,8 @@
 										<h3>EagleVail Pavilion</h3>
 										<div class="event-col">
 											<i class="icon-location"></i>
-											<span>538 Eagle Rd, Avon, CO 81620</span>
+											<span>538
+												Eagle Rd, Avon, CO 81620</span>
 										</div>
 										<p>EagleVail Pavilion is a mountain event venue on the EagleVail golf course, featuring sweeping
 											alpine views, flexible indoor and outdoor event spaces, and convenient access for guests visiting
@@ -216,7 +199,8 @@
 								</div>
 								<div class="col-md-8 col-sm-6 text-center">
 									<div class="event-wrap">
-										<div id="map" style="height: 400px; position: relative; width: 100%; margin-bottom: 30px;"></div>
+										<img src="images/VenueMap.png" alt="EagleVail Pavilion Venue Map" class="img-responsive"
+											style="margin-bottom: 30px;" />
 									</div>
 								</div>
 							</div>
@@ -669,9 +653,6 @@
 	<!-- Main -->
 	<script src="js/main.js"></script>
 
-	<!-- Leaflet JS -->
-	<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-
 	<script>
 		// Use a local target date to avoid timezone parsing issues.
 		const d = new Date(2026, 9, 21, 16, 0, 0);
@@ -689,24 +670,6 @@
 		});
 	</script>
 
-	<script>
-		let loc = [39.619038, -106.477395];
-		// Initialize Leaflet map
-		var map = L.map('map', { zoomControl: false }).setView(loc, 12);
-
-
-
-		L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-			attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-		}).addTo(map);
-
-		L.marker(loc).addTo(map)
-		{
-			{/*  .bindPopup('<div style="font-size: 18px; line-height: 1.4;">EagleVail Pavilion<br>538 Eagle Rd, Avon, CO 81620</div>')
-			.openPopup()  */}
-		}
-		;
-	</script>
 
 </body>
 
