@@ -7,7 +7,7 @@ $grid-gutter-width: 40px !default;
 $border-radius-base: 4px !default;
 $padding-base-vertical: 14px !default;
 
-$brand-primary: #F14E95 !default;
+$brand-primary: #465c47 !default;
 $brand-secondary: #118DF0 !default;
 
 $brand-white: #fff;
@@ -1205,6 +1205,8 @@ form {
 		font-family: $font-secondary;
 		color: $brand-primary;
 		font-size: 30px;
+		margin: 0;
+		white-space: nowrap;
 	}
 
 	.groom,
@@ -1246,13 +1248,26 @@ form {
 	}
 
 	.desc-groom {
-		padding-right: 180px;
+		padding-right: 10px;
 		text-align: right;
+		height: 150px;
+		display: flex;
+		align-items: center;
+		justify-content: flex-end;
+
+		h2 {
+			margin-top: 50px;
+			margin-bottom: 50px;
+		}
 	}
 
 	.desc-bride {
-		padding-left: 180px;
+		padding-left: 10px;
 		text-align: left;
+		height: 150px;
+		display: flex;
+		align-items: center;
+		justify-content: flex-start;
 	}
 
 	@media screen and (max-width: $screen-xs) {
