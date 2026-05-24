@@ -1004,13 +1004,28 @@ form label {
   clear: both;
 }
 
+#fh5co-gallery {
+  padding: 7em 0;
+  clear: both;
+}
+@media screen and (max-width: 768px) {
+  #fh5co-gallery {
+    padding: 3em 0;
+  }
+  #fh5co-gallery [class*=col-] {
+    margin-bottom: 2em;
+  }
+  #fh5co-gallery .row-pb-sm {
+    padding-bottom: 0em !important;
+  }
+}
+
 #fh5co-testimonial,
 #fh5co-services,
 #fh5co-started,
 #fh5co-footer,
 #fh5co-event,
 #fh5co-couple,
-#fh5co-gallery,
 .fh5co-section {
   padding: 7em 0;
   clear: both;
@@ -1022,7 +1037,6 @@ form label {
   #fh5co-footer,
   #fh5co-event,
   #fh5co-couple,
-  #fh5co-gallery,
   .fh5co-section {
     padding: 3em 0;
   }
