@@ -1914,4 +1914,13 @@ form label {
   opacity: 0;
 }
 
+.registry-row {
+  margin-bottom: 30px;
+}
+@media screen and (max-width: 768px) {
+  .registry-row {
+    margin-bottom: 50px;
+  }
+}
+
 /*# sourceMappingURL=style.css.map */

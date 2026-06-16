@@ -2158,3 +2158,15 @@ form {
 		opacity: 0;
 	}
 }
+
+.registry-row {
+	margin-bottom: 30px;
+
+	@media screen and (max-width: $screen-sm) {
+		margin-bottom: 50px;
+	}
+
+	// &:last-child {
+	// 	margin-bottom: 0;
+	// }
+}
