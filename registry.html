@@ -10,6 +10,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Fike Wedding | Registry</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="preconnect" href="https://challenges.cloudflare.com" />
 
   <link href='https://fonts.googleapis.com/css?family=Work+Sans:400,300,600,400italic,700' rel='stylesheet'
     type='text/css'>
@@ -169,6 +170,32 @@
     .registry-heading li {
       margin-bottom: 10px;
     }
+
+    .btn-report-purchase {
+      display: inline-block;
+      margin-top: 15px;
+      padding: 12px 30px;
+      background: #465c47;
+      color: white;
+      text-decoration: none;
+      border-radius: 4px;
+      font-size: 14px;
+      font-weight: 600;
+      transition: background 0.3s ease;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn-report-purchase:hover {
+      background: #37473a;
+      text-decoration: none;
+    }
+
+    .cf-turnstile {
+      display: flex;
+      justify-content: center;
+      margin: 20px 0;
+    }
   </style>
 
 </head>
@@ -247,8 +274,12 @@
           <div class="col-md-4 col-sm-12 animate-box">
             <div class="registry-card">
               <h3>REI</h3>
-              <p>Explore our curated wishlist for our outdoor adventures</p>
+              <p>Explore our curated wishlist for our outdoor adventures. REI doesn't automatically remove purchased
+                items, so please use the button below to let us know what you've bought — we'll mark it off to avoid
+                duplicates.</p>
               <a href="https://www.rei.com/lists/419468495" target="_blank">View Registry</a>
+              <button class="btn-report-purchase" data-toggle="modal" data-target="#reiPurchaseModal">I bought
+                something</button>
             </div>
           </div>
 
@@ -300,6 +331,50 @@
         </div>
       </div>
 
+    </div>
+
+    <!-- REI Purchase Modal -->
+    <div class="modal fade" id="reiPurchaseModal" tabindex="-1" role="dialog" aria-labelledby="reiPurchaseLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="reiPurchaseLabel">Let Us Know About Your Purchase</h4>
+          </div>
+          <form id="reiPurchaseForm" action="https://rsvp-worker.fike.workers.dev" method="POST">
+            <div class="modal-body">
+              <input type="hidden" name="form_type" value="REI_PURCHASE" />
+
+              <div class="rei-form-group">
+                <label for="rei-name">Your Name <span style="color: #F14E95;">*</span></label>
+                <input type="text" id="rei-name" name="name" class="form-control" placeholder="Your full name" required>
+              </div>
+
+              <div class="rei-form-group">
+                <label for="rei-item">What did you purchase? <span style="color: #F14E95;">*</span></label>
+                <textarea id="rei-item" name="item_description" class="form-control"
+                  placeholder="Describe the item(s) you purchased" required></textarea>
+              </div>
+
+              <div class="rei-form-group">
+                <label for="rei-notes">Additional notes (optional)</label>
+                <textarea id="rei-notes" name="notes" class="form-control"
+                  placeholder="Any additional details..."></textarea>
+              </div>
+
+              <div class="rei-form-group">
+                <div class="cf-turnstile" data-sitekey="0x4AAAAAADMMo-0qNw_JKtGM"
+                  data-callback="onReiTurnstileCallback"></div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+              <button type="submit" id="rei-submit-btn" class="btn btn-primary" disabled>Submit</button>
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
 
     <div id="fh5co-started" class="fh5co-bg" style="background-image:url(images/eucalyptus.jpg);">
@@ -361,6 +436,62 @@
 
   <!-- Main -->
   <script src="js/main.js"></script>
+
+  <script>
+    function onReiTurnstileCallback() {
+      document.getElementById('rei-submit-btn').disabled = false;
+    }
+
+    var reiForm = document.getElementById('reiPurchaseForm');
+    var reiSubmitBtn = document.getElementById('rei-submit-btn');
+
+    reiForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      reiSubmitBtn.disabled = true;
+      reiSubmitBtn.textContent = 'Submitting...';
+
+      var formData = new FormData(reiForm);
+
+      fetch('https://rsvp-worker.fike.workers.dev', {
+        method: 'POST',
+        body: formData
+      })
+        .then(function (response) {
+          if (response.ok) {
+            $('#reiPurchaseModal').modal('hide');
+            reiForm.reset();
+            if (window.turnstile) {
+              window.turnstile.reset();
+            }
+            reiSubmitBtn.disabled = true;
+            reiSubmitBtn.textContent = 'Submit';
+            window.alert('Thanks! We have noted your purchase and will remove it from the list.');
+          } else {
+            alert('There was an error submitting your purchase notification. Please try again.');
+            reiSubmitBtn.disabled = false;
+            reiSubmitBtn.textContent = 'Submit';
+          }
+        })
+        .catch(function (error) {
+          console.error('Error:', error);
+          alert('There was an error submitting your purchase notification. Please try again.');
+          reiSubmitBtn.disabled = false;
+          reiSubmitBtn.textContent = 'Submit';
+        });
+    });
+
+    $('#reiPurchaseModal').on('show.bs.modal', function () {
+      reiForm.reset();
+      if (window.turnstile) {
+        window.turnstile.reset();
+      }
+      reiSubmitBtn.disabled = true;
+      reiSubmitBtn.textContent = 'Submit';
+    });
+  </script>
+
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 
 </body>
 
