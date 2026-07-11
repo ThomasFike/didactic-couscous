@@ -135,10 +135,11 @@
 							</div>
 							<div class="row form-group">
 								<div class="cf-turnstile" data-sitekey="0x4AAAAAADMMo-0qNw_JKtGM" data-callback="onTurnstileCallback">
+							<!-- <div class="cf-turnstile" data-sitekey="1x00000000000000000000AA" data-callback="onTurnstileCallback" data-expired-callback="onTurnstileExpired" data-error-callback="onTurnstileExpired"> -->
 								</div>
 							</div>
 							<div class="form-group">
-								<input type="submit" id="submit-btn" value="Submit RSVP" disabled class="btn btn-primary">
+								<button type="submit" id="submit-btn" disabled class="btn btn-primary">Submit RSVP</button>
 							</div>
 						</form>
 					</div>
@@ -170,10 +171,48 @@
 
 	<script>
 		function onTurnstileCallback(token) {
-			// Turnstile passed, enable the submit button
 			document.getElementById('submit-btn').disabled = false;
 		}
+
+		function onTurnstileExpired() {
+			document.getElementById('submit-btn').disabled = true;
+		}
+
+		document.querySelector('form').addEventListener('submit', function () {
+			var btn = document.getElementById('submit-btn');
+			btn.disabled = true;
+			btn.innerHTML = '<span class="rsvp-spinner"></span>Submitting…';
+		});
+
+		window.addEventListener('pageshow', function (event) {
+			if (event.persisted) {
+				// Page restored from bfcache (e.g. hitting Back)
+				var btn = document.getElementById('submit-btn');
+				btn.disabled = true;
+				btn.innerHTML = 'Submit RSVP';
+				if (window.turnstile) {
+					turnstile.reset();
+				}
+			}
+		});
 	</script>
+	<style>
+		@keyframes rsvp-spin {
+			to { transform: rotate(360deg); }
+		}
+		.rsvp-spinner {
+			display: inline-block;
+			width: 14px;
+			height: 14px;
+			border: 3px solid rgba(255, 255, 255, 0.4);
+			border-top-color: #fff;
+			border-radius: 50%;
+			animation: rsvp-spin 0.7s linear infinite;
+			vertical-align: middle;
+			margin-right: 6px;
+			margin-bottom: 2px;
+		}
+	</style>
 
 	<!-- jQuery -->
 	<script src="js/jquery.min.js"></script>
